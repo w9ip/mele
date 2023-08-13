@@ -5,7 +5,31 @@
 {% block content %}
     <h1>{{ post.title }}</h1>
     <p class="date">
-        Опубликовано в {{ post.publish }} от пользователя: {{ post.author }}
+        Опубликовано {{ post.publish }} пользователем: {{ post.author }}
     </p>
     {{ post.body|linebreaks }}
+    <p>
+        <a href="{% url "blog:post_share" post.id %}">
+            Поделиться этим постом.
+        </a>
+    </p>
+    {% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }}  comment{{ total_comments|pluralize }}
+    </h2>
+    {% endwith %}
+    {% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Комментарий {{ forloop.counter }} от {{ comment.name }}
+            {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+        <p>
+            Здесть нет комментариев.
+        </p>
+    {% endfor %}
+    {% include 'blog/post/includes/comment_form.html' %}
 {% endblock content %}

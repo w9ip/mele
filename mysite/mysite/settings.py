@@ -29,6 +29,15 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+with open('mysite/ssecret.txt', 'r') as f:
+    lst = f.readlines()
+    EMAIL_HOST_USER = lst[0].rstrip()
+    EMAIL_HOST_PASSWORD = lst[1].rstrip()
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -104,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
